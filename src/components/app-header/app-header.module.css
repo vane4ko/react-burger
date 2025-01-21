@@ -1,0 +1,41 @@
+.header {
+  background-color: #1c1c21;
+  padding-inline: 40px;
+  height: 88px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.headerContent {
+  width: 1280px;
+  height: 56px;
+}
+
+.navList {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+.li {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  height: 56px;
+  border-radius: 40px;
+}
+.navigationBlock {
+  display: flex;
+  gap: 8px;
+}
+.logo {
+  justify-self: center;
+}
+.liv {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  height: 56px;
+  border-radius: 40px;
+  justify-self: end;
+}

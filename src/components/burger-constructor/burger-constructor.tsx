@@ -1,73 +1,89 @@
-import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useState } from "react";
-import IngredientCard from "./ingredient-card/ingredient-card";
-import costructorStyles from "./burger-construcor.module.css";
+import {
+  Button,
+  ConstructorElement,
+  CurrencyIcon,
+  DragIcon,
+} from "@ya.praktikum/react-developer-burger-ui-components";
 import { BurgerItem } from "../../types/types";
+import BurgerConstructorStyles from "./burger-constructor.module.css";
+import { useMemo, useState } from "react";
+import Modal from "../modal/modal";
+import OrderDetails from "./order-details/order-details";
 
 type BurgerConstructorProps = {
-  burgerData: BurgerItem[];
   burgerRecipe: BurgerItem[];
 };
-const BurgerConstructor = ({
-  burgerData,
-  burgerRecipe,
-}: BurgerConstructorProps) => {
-  const [current, setCurrent] = useState("one");
-  const countById = (array: { _id: string }[], id: string): number => {
-    return array.reduce(
-      (count, item) => (item._id === id ? count + 1 : count),
-      0
-    );
+
+const BurgerConstructor = ({ burgerRecipe }: BurgerConstructorProps) => {
+  const bunItem = useMemo(() => {
+    const defaultBun = {
+      name: "Заглушка булки",
+      price: 0,
+      image: "https://code.s3.yandex.net/react/code/bun-02.png",
+    };
+
+    return burgerRecipe.find((item) => item.type === "bun") || defaultBun;
+  }, [burgerRecipe]);
+
+  const withoutBun = useMemo(() => {
+    return burgerRecipe.filter((item) => item.type !== "bun");
+  }, [burgerRecipe]);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  const closeHandler = () => {
+    setIsOpen(false);
+  };
+  const showHandler = () => {
+    setIsOpen(true);
   };
   return (
-    <div className="mr-10">
-      <p className="text text_type_main-large mt-10 mb-5">Соберите бургер</p>
-      <div style={{ display: "flex" }}>
-        <Tab value="bun" active={current === "bun"} onClick={setCurrent}>
-          Булки
-        </Tab>
-        <Tab value="sauce" active={current === "sauce"} onClick={setCurrent}>
-          Соусы
-        </Tab>
-        <Tab value="main" active={current === "main"} onClick={setCurrent}>
-          Начинки
-        </Tab>
+    <div className={`${BurgerConstructorStyles.wrapper} mt-25 ml-4`}>
+      <ConstructorElement
+        type="top"
+        isLocked={true}
+        text={`${bunItem.name} (верх)`}
+        price={bunItem.price}
+        thumbnail={bunItem.image}
+        extraClass="ml-8"
+      />
+      <div className={`${BurgerConstructorStyles.wrapperWithoutBun}`}>
+        {withoutBun.map((el, index) => (
+          <div
+            key={`${el._id}${index}`}
+            className={BurgerConstructorStyles.row}
+          >
+            <DragIcon type="primary" />{" "}
+            <ConstructorElement
+              text={el.name}
+              price={el.price}
+              thumbnail={el.image}
+            />
+          </div>
+        ))}
       </div>
-      <div className={costructorStyles.wrapper}>
-        <p className="text text_type_main-medium mt-10 mb-6">Булки</p>
-        <div className={`${costructorStyles.constructorCell} ml-4 mb-10`}>
-          {burgerData
-            .filter((el) => el.type === "bun")
-            .map((ingredient) => (
-              <IngredientCard
-                count={countById(burgerRecipe, ingredient._id)}
-                ingredient={ingredient}
-              />
-            ))}
-        </div>
-        <p className="text text_type_main-medium mt-10 mb-6">Соусы</p>
-        <div className={`${costructorStyles.constructorCell} ml-4 mb-10`}>
-          {burgerData
-            .filter((el) => el.type === "sauce")
-            .map((ingredient) => (
-              <IngredientCard
-                count={countById(burgerRecipe, ingredient._id)}
-                ingredient={ingredient}
-              />
-            ))}
-        </div>
-        <p className="text text_type_main-medium mt-10 mb-6">Начинки</p>
-        <div className={`${costructorStyles.constructorCell} ml-4 mb-10`}>
-          {burgerData
-            .filter((el) => el.type === "main")
-            .map((ingredient) => (
-              <IngredientCard
-                count={countById(burgerRecipe, ingredient._id)}
-                ingredient={ingredient}
-              />
-            ))}
-        </div>
+      <ConstructorElement
+        type="bottom"
+        isLocked={true}
+        text={`${bunItem.name} (низ)`}
+        price={bunItem.price}
+        thumbnail={bunItem.image}
+        extraClass="ml-8"
+      />
+      <div className={`${BurgerConstructorStyles.info} mt-10`}>
+        <p className="text text_type_digits-medium">610</p>
+        <CurrencyIcon type="primary" className="mr-10" />
+        <Button
+          onClick={showHandler}
+          htmlType="button"
+          type="primary"
+          size="medium"
+        >
+          Оформить заказ
+        </Button>
       </div>
+      <Modal isOpen={isOpen} onClose={closeHandler}>
+        <OrderDetails />
+      </Modal>
     </div>
   );
 };

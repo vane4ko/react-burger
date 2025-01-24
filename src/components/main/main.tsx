@@ -1,14 +1,13 @@
-import BurgerConstructor from "../burger-constructor/burger-constructor";
-import BurgerIngredients from "../burger-ingredients/burger-ingredients";
+import BurgerConstructor from "../burger-ingredients/burger-ingredients";
+import BurgerIngredients from "../burger-constructor/burger-constructor";
 import mainStyles from "./main.module.css";
-import { burgerData } from "../../utils/data";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BurgerItem } from "../../types/types";
 
 const Main = () => {
   const [burgerRecipe] = useState<BurgerItem[]>([
     {
-      _id: "60666c42cc7b410027a1a9b1",
+      _id: "643d69a5c3f7b9001cfa093c",
       name: "Краторная булка N-200i",
       type: "bun",
       proteins: 80,
@@ -22,7 +21,7 @@ const Main = () => {
       __v: 0,
     },
     {
-      _id: "60666c42cc7b410027a1a9b9",
+      _id: "643d69a5c3f7b9001cfa0944",
       name: "Соус традиционный галактический",
       type: "sauce",
       proteins: 42,
@@ -110,12 +109,31 @@ const Main = () => {
       __v: 0,
     },
   ]);
+  const [ingredients, setIngrediens] = useState<BurgerItem[]>([]);
+  const dataUrl = "https://norma.nomoreparties.space/api/ingredients";
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(dataUrl);
+        if (response.ok) {
+          const { data } = await response.json();
+          setIngrediens(data);
+        } else {
+          console.log(
+            "Failed to get what I want, got status: " + response.status
+          );
+        }
+      } catch (e) {
+        console.log("error bla bla");
+      }
+    };
+    fetchData();
+  }, []);
+
   return (
     <main className={mainStyles.main}>
-      <BurgerConstructor burgerData={burgerData} burgerRecipe={burgerRecipe} />
-      <BurgerIngredients
-        burgerRecipe={burgerRecipe}
-      />
+      <BurgerConstructor burgerData={ingredients} burgerRecipe={burgerRecipe} />
+      <BurgerIngredients burgerRecipe={burgerRecipe} />
     </main>
   );
 };

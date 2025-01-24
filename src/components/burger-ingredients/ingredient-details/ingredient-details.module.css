@@ -1,0 +1,12 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.macronutrientsBlock {
+  display: flex;
+  gap: 20px;
+}
+.macronutrient {
+  composes: wrapper;
+}

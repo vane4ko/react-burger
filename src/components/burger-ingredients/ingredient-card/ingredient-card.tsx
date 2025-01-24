@@ -8,11 +8,16 @@ import { BurgerItem } from "../../../types/types";
 type IngredientCardProps = {
   ingredient: BurgerItem;
   count: number;
+  onClick: (arg0: BurgerItem) => void;
 };
 
-const IngredientCard = ({ ingredient, count }: IngredientCardProps) => {
+const IngredientCard = ({
+  ingredient,
+  count,
+  onClick,
+}: IngredientCardProps) => {
   return (
-    <div className={cardSrtyles.box}>
+    <div className={cardSrtyles.box} onClick={() => onClick(ingredient)}>
       <img
         className={`${cardSrtyles.image} mr-4 ml-4`}
         src={ingredient.image_large}

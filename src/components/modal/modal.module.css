@@ -1,0 +1,26 @@
+.modalMain {
+  position: relative;
+  width: 720px;
+  height: 500px;
+  background-color: #1c1c21;
+  border-radius: 40px;
+  height: fit-content;
+}
+.modalContent {
+  display: flex;
+  justify-content: center;
+}
+.title {
+  display: flex;
+  align-items: center;
+  height: 64px;
+  justify-content: space-between;
+}
+.closeButton {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.cursorPointer{
+  cursor: pointer;
+}

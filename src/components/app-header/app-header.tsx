@@ -14,22 +14,28 @@ const AppHeader = () => {
           <ul className={headerStyles.navList}>
             <div className={headerStyles.navigationBlock}>
               <li className={`${headerStyles.li}`}>
-                <BurgerIcon type="primary" className="ml-5 mr-2" />
-                <p className="text text_type_main-small  mr-5">Конструктор</p>
+                <a href="#" className={headerStyles.navLink}>
+                  <BurgerIcon type="primary" className="ml-5 mr-2" />
+                  <p className="text text_type_main-small  mr-5">Конструктор</p>
+                </a>
               </li>
               <li className={`${headerStyles.li}`}>
-                <ListIcon type="secondary" className="ml-5 mr-2" />
-                <p className="text text_type_main-small text_color_inactive mr-5">
-                  Лента заказов
-                </p>
+                <a href="#" className={headerStyles.navLink}>
+                  <ListIcon type="secondary" className="ml-5 mr-2" />
+                  <p className="text text_type_main-small text_color_inactive mr-5">
+                    Лента заказов
+                  </p>
+                </a>
               </li>
             </div>
-            <Logo className={headerStyles.logo}/>
+            <Logo className={headerStyles.logo} />
             <li className={`${headerStyles.liv}`}>
-              <ProfileIcon type="secondary" className="ml-5 mr-2" />
-              <p className="text text_type_main-small text_color_inactive mr-5">
-                Личный кабинет
-              </p>
+              <a href="#" className={headerStyles.navLink}>
+                <ProfileIcon type="secondary" className="ml-5 mr-2" />
+                <p className="text text_type_main-small text_color_inactive mr-5">
+                  Личный кабинет
+                </p>
+              </a>
             </li>
           </ul>
         </nav>

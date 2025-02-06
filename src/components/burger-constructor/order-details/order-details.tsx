@@ -1,20 +1,18 @@
+import { useAppSelector } from "../../../services/app/hooks";
 import orderStyles from "./order-details.module.css";
 
 const OrderDetails = () => {
-  const propOrder = {
-    id: "034536",
-  };
+  const order = useAppSelector((store) => store.order);
   return (
     <div className={orderStyles.wrapper}>
       <p className={`text text_type_digits-large mb-8 ${orderStyles.glow}`}>
-        {propOrder.id}
+        {order.loading ? "Loading" : `${order.orderId}` || "000"}
       </p>
       <p className="text text_type_main-medium mb-15">индентификатор заказа</p>
       <svg
         width="107"
         height="102"
         viewBox="0 0 107 102"
-        fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
@@ -81,7 +79,7 @@ const OrderDetails = () => {
         </defs>
       </svg>
       <p className="text text_type_main-default mt-15 mb-2">
-        Ваш заказ начали готовить
+        {order.status ? "Ваш заказ начали готовить" : `${order.error}`}
       </p>
       <p className="text text_type_main-default text_color_inactive mb-30">
         Дождитесь готовности на орбитальной станции

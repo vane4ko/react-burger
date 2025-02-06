@@ -12,3 +12,6 @@ export type BurgerItem = {
   image_large: string;
   __v: number;
 };
+export type BurgerItemWithKey = BurgerItem & {
+  key: number;
+};

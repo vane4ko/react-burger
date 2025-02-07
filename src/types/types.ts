@@ -13,5 +13,5 @@ export type BurgerItem = {
   __v: number;
 };
 export type BurgerItemWithKey = BurgerItem & {
-  key: number;
+  key: string;
 };

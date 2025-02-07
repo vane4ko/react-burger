@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, nanoid, PayloadAction } from "@reduxjs/toolkit";
 import { BurgerItem, BurgerItemWithKey } from "../../../types/types";
 
 type constructorState = {
@@ -10,8 +10,6 @@ const initialState: constructorState = {
   bun: null,
 };
 
-let key = 0;
-
 export const constructorSlice = createSlice({
   name: "burgerConstructor",
   initialState,
@@ -19,11 +17,15 @@ export const constructorSlice = createSlice({
     clearFillingItems: (state) => {
       state.filling = [];
     },
-    addIngredient: (state, action) => {
-      action.payload.type === "bun"
-        ? (state.bun = action.payload)
-        : state.filling.push({ ...action.payload, key });
-      key++;
+    addIngredient: {
+      reducer: (state, action: PayloadAction<BurgerItemWithKey>) => {
+        action.payload.type === "bun"
+          ? (state.bun = action.payload)
+          : state.filling.push(action.payload);
+      },
+      prepare: (ingredient: BurgerItem) => {
+        return { payload: { ...ingredient, key: nanoid() } };
+      },
     },
     deleteIngredient: (state, action) => {
       if (action.payload.type === "bun") {

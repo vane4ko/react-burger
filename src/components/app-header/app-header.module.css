@@ -34,8 +34,13 @@
 .liv {
   display: flex;
   align-items: center;
-  cursor: pointer;
   height: 56px;
   border-radius: 40px;
   justify-self: end;
+}
+.navLink {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: unset;
 }

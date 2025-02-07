@@ -4,15 +4,35 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import cardSrtyles from "./ingredient-card.module.css";
 import { BurgerItem } from "../../../types/types";
+import { useDrag } from "react-dnd";
 
 type IngredientCardProps = {
   ingredient: BurgerItem;
   count: number;
+  onClick: (arg0: BurgerItem) => void;
 };
 
-const IngredientCard = ({ ingredient, count }: IngredientCardProps) => {
+const IngredientCard = ({
+  ingredient,
+  count,
+  onClick,
+}: IngredientCardProps) => {
+
+  const [{ isDragging }, drag] = useDrag(() => ({
+    type: 'BURGER_ITEM',
+    item: { ingredient },
+    collect: (monitor) => ({
+      isDragging: monitor.isDragging(),
+    }),
+  }));
+
   return (
-    <div className={cardSrtyles.box}>
+    <div
+      ref={drag}
+      className={cardSrtyles.box}
+      onClick={() => onClick(ingredient)}
+      style={{ opacity: isDragging ? 0.5 : 1 }}
+    >
       <img
         className={`${cardSrtyles.image} mr-4 ml-4`}
         src={ingredient.image_large}

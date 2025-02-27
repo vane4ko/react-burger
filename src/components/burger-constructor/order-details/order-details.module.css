@@ -1,0 +1,9 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.glow {
+  text-shadow: rgba(51, 51, 255, 0.5) 1px 0 32px;
+}

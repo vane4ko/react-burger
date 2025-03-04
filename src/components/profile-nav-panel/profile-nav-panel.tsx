@@ -4,6 +4,7 @@ import { useCallback } from "react";
 import { useAppDispatch } from "../../services/app/hooks";
 import { thunkLogout } from "../../services/features/auth/auth-thunk";
 import { AppRoutes } from "../../utils/routes";
+import { clearTokens } from "../../services/features/auth/auth-utils";
 
 const ProfileNavPanel = () => {
   const dispatch = useAppDispatch();
@@ -12,8 +13,13 @@ const ProfileNavPanel = () => {
   const logoutUser = useCallback(async () => {
     const token = localStorage.getItem("refreshToken");
     if (token) {
-      await dispatch(thunkLogout({ token })); // Дождемся завершения запроса
-      navigate(AppRoutes.sign.in); // Перенаправляем пользователя на страницу входа
+      try {
+        await dispatch(thunkLogout({ token })).unwrap();
+        clearTokens();
+        navigate(AppRoutes.sign.in);
+      } catch (error) {
+        alert(`Ошибка при выходе: ${error}`);
+      }
     }
   }, [dispatch, navigate]);
 

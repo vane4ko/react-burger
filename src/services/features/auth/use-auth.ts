@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import { useAppDispatch } from "../../app/hooks";
 import { kickUser } from "./auth-slice";
 import { thunkGetUser, thunkRefresh } from "./auth-thunk";
+import { clearTokens, saveTokens } from "./auth-utils";
+import { unwrapResult } from "@reduxjs/toolkit";
 
 export const useAuth = () => {
   const dispatch = useAppDispatch();
@@ -20,14 +22,19 @@ export const useAuth = () => {
         const refreshToken = localStorage.getItem("refreshToken");
         if (refreshToken) {
           try {
-            const { accessToken: newAccessToken } = await dispatch(
-              thunkRefresh({ token: refreshToken })
-            ).unwrap();
+            const {
+              accessToken: newAccessToken,
+              refreshToken: newRefreshToken,
+            } = await dispatch(thunkRefresh({ token: refreshToken })).then(
+              unwrapResult
+            );
+            saveTokens(newAccessToken, newRefreshToken);
             await dispatch(
               thunkGetUser({ token: newAccessToken.split(" ")[1] })
             ).unwrap();
           } catch (refreshError) {
             dispatch(kickUser());
+            clearTokens();
           }
         } else {
           dispatch(kickUser());

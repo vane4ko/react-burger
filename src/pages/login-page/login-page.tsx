@@ -8,6 +8,8 @@ import { useAppDispatch } from "../../services/app/hooks";
 import { useState } from "react";
 import { AppRoutes } from "../../utils/routes";
 import { thunkLogin } from "../../services/features/auth/auth-thunk";
+import { unwrapResult } from "@reduxjs/toolkit";
+import { saveTokens } from "../../services/features/auth/auth-utils";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -22,13 +24,19 @@ const LoginPage = () => {
     setShowPassword((prev) => !prev);
   };
 
-  const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
+  const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(thunkLogin({ email, password }))
-      .unwrap()
-      .then(() => navigate(location.state?.from?.pathname || '/404'))
-      .catch((rejectedAction) => setError(`${rejectedAction}`));
+    try {
+      const { accessToken, refreshToken } = await dispatch(
+        thunkLogin({ email, password })
+      ).then(unwrapResult);
+      saveTokens(accessToken, refreshToken);
+      navigate(location.state?.from?.pathname || "/");
+    } catch (error) {
+      setError(`${error}`);
+    }
   };
+  
   return (
     <div className={styles.wrapper}>
       <div className={styles.container}>

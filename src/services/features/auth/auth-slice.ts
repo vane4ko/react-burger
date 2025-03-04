@@ -26,16 +26,6 @@ const initialState: AuthState = {
   resetIsActive: false,
 };
 
-const saveTokens = (accessToken: string, refreshToken: string) => {
-  localStorage.setItem("accessToken", accessToken.split(" ")[1]);
-  localStorage.setItem("refreshToken", refreshToken);
-};
-
-const clearTokens = () => {
-  localStorage.removeItem("accessToken");
-  localStorage.removeItem("refreshToken");
-};
-
 const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -54,8 +44,6 @@ const authSlice = createSlice({
         state.isLoading = false;
         state.user = action.payload?.user ?? null;
         state.status = "authenticated";
-        if (action.payload)
-          saveTokens(action.payload.accessToken, action.payload.refreshToken);
       })
       .addCase(thunkSignUp.rejected, (state, action) => {
         state.error = action.payload ?? "Неизвестная ошибка";
@@ -98,8 +86,6 @@ const authSlice = createSlice({
         state.isLoading = false;
         state.user = action.payload?.user ?? null;
         state.status = "authenticated";
-        if (action.payload)
-          saveTokens(action.payload.accessToken, action.payload.refreshToken);
       })
       .addCase(thunkLogin.rejected, (state, action) => {
         state.error = action.payload ?? "Неизвестная ошибка";
@@ -115,7 +101,6 @@ const authSlice = createSlice({
         state.isLoading = false;
         state.user = null;
         state.status = "guest";
-        clearTokens();
       })
       .addCase(thunkLogout.rejected, (state, action) => {
         state.error = action.payload ?? "Неизвестная ошибка";
@@ -126,17 +111,14 @@ const authSlice = createSlice({
         state.isLoading = true;
       })
 
-      .addCase(thunkRefresh.fulfilled, (state, action) => {
+      .addCase(thunkRefresh.fulfilled, (state) => {
         state.isLoading = false;
         state.status = "authenticated";
-        if (action.payload)
-          saveTokens(action.payload.accessToken, action.payload.refreshToken);
       })
       .addCase(thunkRefresh.rejected, (state, action) => {
         state.error = action.payload ?? "Неизвестная ошибка";
         state.isLoading = false;
         state.status = "guest";
-        clearTokens();
       })
       .addCase(thunkRefresh.pending, (state) => {
         state.error = "";

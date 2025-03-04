@@ -9,6 +9,7 @@ import { useState } from "react";
 import { AppRoutes } from "../../utils/routes";
 import { thunkSignUp } from "../../services/features/auth/auth-thunk";
 import { unwrapResult } from "@reduxjs/toolkit";
+import { saveTokens } from "../../services/features/auth/auth-utils";
 
 const SignUpPage = () => {
   const dispatch = useAppDispatch();
@@ -25,9 +26,11 @@ const SignUpPage = () => {
 
   const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     try {
-      await dispatch(thunkSignUp({ name, email, password })).then(unwrapResult);
+      const { accessToken, refreshToken } = await dispatch(
+        thunkSignUp({ name, email, password })
+      ).then(unwrapResult);
+      saveTokens(accessToken, refreshToken);
     } catch (rejectedAction) {
       setError(`${rejectedAction}`);
     }

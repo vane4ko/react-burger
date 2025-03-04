@@ -1,0 +1,21 @@
+.wrapper {
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.content {
+  margin: auto;
+  text-align: center;
+  padding: 0px 8px;
+}
+
+.link {
+  color: rgba(76, 76, 255, 1);
+}
+
+.errorMessage {
+  color: #e52b1a;
+  text-align: center;
+}

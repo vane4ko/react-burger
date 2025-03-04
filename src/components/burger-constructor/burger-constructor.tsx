@@ -18,10 +18,15 @@ import { useAppDispatch, useAppSelector } from "../../services/app/hooks";
 import { useDrop } from "react-dnd";
 import { thunkSendOrder } from "../../services/features/order/order-thunk";
 import SortableFillingItem from "./sortable-item/sortable-item";
+import { useNavigate } from "react-router-dom";
+import { AppRoutes } from "../../utils/routes";
 
 const BurgerConstructor = () => {
   const bun = useAppSelector((store) => store.burgerConstructor.bun);
   const filling = useAppSelector((store) => store.burgerConstructor.filling);
+  const { status } = useAppSelector((store) => store.userAuth);
+
+  const navigate = useNavigate();
 
   const bunItem = useMemo(() => {
     const defaultBun = {
@@ -43,6 +48,10 @@ const BurgerConstructor = () => {
     setIsOpen(false);
   };
   const showHandler = () => {
+    if (status !== "authenticated") {
+      navigate(AppRoutes.sign.in);
+      return;
+    }
     const ids = [];
     filling.forEach((el) => {
       ids.push(el._id);

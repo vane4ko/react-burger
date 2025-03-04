@@ -30,6 +30,7 @@
 }
 .logo {
   justify-self: center;
+  cursor: pointer;
 }
 .liv {
   display: flex;
@@ -43,4 +44,11 @@
   align-items: center;
   text-decoration: none;
   color: unset;
+}
+
+.navLink.active p {
+  color: #ffffff;
+}
+.navLink.active svg {
+  fill: #ffffff;
 }

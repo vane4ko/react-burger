@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import ingredientsReducer from "../features/ingredients/ingredients-slice";
 import constructorReducer from "../features/constructor/constructor-slice";
+import authReducer from "../features/auth/auth-slice";
 import orderReducer from "../features/order/order-slice";
 import currentIngredientReducer from "../features/current-ingredient/current-ingredient";
 
@@ -10,6 +11,7 @@ export const store = configureStore({
     burgerConstructor: constructorReducer,
     currentIngredient: currentIngredientReducer,
     order: orderReducer,
+    userAuth: authReducer,
   },
 });
 

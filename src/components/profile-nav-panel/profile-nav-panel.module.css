@@ -1,0 +1,24 @@
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  height: 64px;
+}
+
+.link {
+  text-decoration: none;
+  transition: 0.2s;
+  cursor: pointer;
+}
+.link.active {
+  color: rgb(255, 255, 255);
+}
+
+.link:hover {
+  color: rgba(255, 255, 255, 0.617);
+}

@@ -1,5 +1,6 @@
 .main {
   width: 1240px;
   display: flex;
-  justify-self: center;
+  margin-left: auto;
+  margin-right: auto;
 }

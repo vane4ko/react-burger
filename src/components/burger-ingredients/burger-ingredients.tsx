@@ -1,27 +1,21 @@
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useEffect, useRef, useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import IngredientCard from "./ingredient-card/ingredient-card";
 import ingredientsStyles from "./burger-ingredients.module.css";
 import { BurgerItem } from "../../types/types";
 import { countById } from "../../utils/helpers";
-import Modal from "../modal/modal";
-import IngredientDetails from "./ingredient-details/ingredient-details";
 import { useAppDispatch, useAppSelector } from "../../services/app/hooks";
 import { clearError } from "../../services/features/ingredients/ingredients-slice";
 import { thunkFetchIngredients } from "../../services/features/ingredients/ingredients-thunk";
-import {
-  clearCurrentIngredient,
-  setCurrentIngredient,
-} from "../../services/features/current-ingredient/current-ingredient";
+import { setCurrentIngredient } from "../../services/features/current-ingredient/current-ingredient";
 
 const BurgerIngredients = () => {
   const burgerData = useAppSelector((store) => store.ingredients.items);
   const error = useAppSelector((store) => store.ingredients.error);
   const bun = useAppSelector((store) => store.burgerConstructor.bun);
   const filling = useAppSelector((store) => store.burgerConstructor.filling);
-  const targetedIngredient = useAppSelector(
-    (store) => store.currentIngredient.ingredient
-  );
+
   const [burgerRecipe, setBurgerRecipe] = useState<BurgerItem[]>([]);
   const [current, setCurrent] = useState("one");
 
@@ -29,6 +23,10 @@ const BurgerIngredients = () => {
   const bunRef = useRef<HTMLDivElement>(null);
   const sauceRef = useRef<HTMLDivElement>(null);
   const mainRef = useRef<HTMLDivElement>(null);
+
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const handleTabClick = (value: string) => {
     setCurrent(value);
@@ -49,13 +47,12 @@ const BurgerIngredients = () => {
     }
   };
 
-  const closeHandler = () => {
-    dispatch(clearCurrentIngredient());
-  };
   const showHandler = (ingredient: BurgerItem) => {
     dispatch(setCurrentIngredient(ingredient));
+    navigate(`/ingredients/${ingredient._id}`, {
+      state: { background: location },
+    });
   };
-  const dispatch = useAppDispatch();
 
   useEffect(() => {
     bun ? setBurgerRecipe([...filling, bun]) : setBurgerRecipe([...filling]);
@@ -100,7 +97,6 @@ const BurgerIngredients = () => {
       const closest = distances.reduce((prev, curr) =>
         curr.dist < prev.dist ? curr : prev
       );
-
       if (closest.type !== current) {
         setCurrent(closest.type);
       }
@@ -187,14 +183,8 @@ const BurgerIngredients = () => {
             ))}
         </div>
       </div>
-      <Modal
-        title={"Детали ингридиента"}
-        isOpen={!!targetedIngredient}
-        onClose={closeHandler}
-      >
-        <IngredientDetails ingredient={targetedIngredient} />
-      </Modal>
     </div>
   );
 };
+
 export default BurgerIngredients;

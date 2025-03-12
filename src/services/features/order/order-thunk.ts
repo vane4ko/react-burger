@@ -11,10 +11,12 @@ export const thunkSendOrder = createAsyncThunk<
   { rejectValue: string }
 >("order/thunkSendOrder", async (orderData, thunkAPI) => {
   try {
+    const token = localStorage.getItem("accessToken");
     const data = await request<orderResponseFormData>("/orders", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(orderData),
     });

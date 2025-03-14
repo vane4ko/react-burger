@@ -1,18 +1,18 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import {
-  orderFormData,
-  orderResponseFormData,
+  OrderFormData,
+  OrderResponseFormData,
 } from "../../../types/order-types";
 import { request } from "../../../utils/api";
 
 export const thunkSendOrder = createAsyncThunk<
-  orderResponseFormData,
-  orderFormData,
+  OrderResponseFormData,
+  OrderFormData,
   { rejectValue: string }
 >("order/thunkSendOrder", async (orderData, thunkAPI) => {
   try {
     const token = localStorage.getItem("accessToken");
-    const data = await request<orderResponseFormData>("/orders", {
+    const data = await request<OrderResponseFormData>("/orders", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

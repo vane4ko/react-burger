@@ -6,7 +6,6 @@ import {
   clearCurrentIngredient,
   setCurrentIngredient,
 } from "../../services/features/current-ingredient/current-ingredient";
-import { thunkFetchIngredients } from "../../services/features/ingredients/ingredients-thunk";
 import IIStyles from "./ingredient-info.module.css";
 
 const IngredientInfo = () => {
@@ -17,7 +16,6 @@ const IngredientInfo = () => {
   );
   const { id } = useParams<{ id: string }>();
   useEffect(() => {
-    dispatch(thunkFetchIngredients());
     return () => {
       dispatch(clearCurrentIngredient());
     };

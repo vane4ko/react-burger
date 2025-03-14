@@ -1,7 +1,7 @@
-export type orderFormData = {
+export type OrderFormData = {
   ingredients: string[];
 };
-export type orderResponseFormData = {
+export type OrderResponseFormData = {
   name: string;
   order: {
     number: number;

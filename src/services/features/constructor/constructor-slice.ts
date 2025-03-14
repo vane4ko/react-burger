@@ -1,11 +1,11 @@
 import { createSlice, nanoid, PayloadAction } from "@reduxjs/toolkit";
 import { BurgerItem, BurgerItemWithKey } from "../../../types/types";
 
-type constructorState = {
+type ConstructorState = {
   filling: BurgerItemWithKey[];
   bun: null | BurgerItem;
 };
-const initialState: constructorState = {
+const initialState: ConstructorState = {
   filling: [],
   bun: null,
 };

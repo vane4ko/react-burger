@@ -10,12 +10,13 @@ import ProfilePage from "./pages/profile-page/profile-page";
 import IngredientInfo from "./pages/ingredient-info/ingredient-info";
 import SignUpPage from "./pages/sing-up-page/sing-up-page";
 import { useAppDispatch, useAppSelector } from "./services/app/hooks";
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import Modal from "./components/modal/modal";
 import { clearCurrentIngredient } from "./services/features/current-ingredient/current-ingredient";
 import { useAuth } from "./services/features/auth/use-auth";
 import ProfileUserData from "./pages/profile-page/profile-user-data/profile-user-data";
 import Page404 from "./pages/page-404/page-404";
+import { thunkFetchIngredients } from "./services/features/ingredients/ingredients-thunk";
 
 function App() {
   const { status } = useAppSelector((store) => store.userAuth);
@@ -30,6 +31,10 @@ function App() {
     dispatch(clearCurrentIngredient());
     navigate(-1);
   }, [dispatch, navigate]);
+
+  useEffect(() => {
+    dispatch(thunkFetchIngredients());
+  }, [dispatch]);
 
   return (
     <>

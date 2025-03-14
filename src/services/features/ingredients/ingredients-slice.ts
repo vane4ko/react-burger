@@ -2,12 +2,12 @@ import { createSlice } from "@reduxjs/toolkit";
 import { BurgerItem } from "../../../types/types";
 import { thunkFetchIngredients } from "./ingredients-thunk";
 
-type ingredientsState = {
+type IngredientsState = {
   items: BurgerItem[];
   loading: boolean;
   error: null | string;
 };
-const initialState: ingredientsState = {
+const initialState: IngredientsState = {
   items: [],
   loading: false,
   error: null,

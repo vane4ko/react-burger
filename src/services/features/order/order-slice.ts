@@ -1,14 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { thunkSendOrder } from "./order-thunk";
 
-type orderState = {
+type OrderState = {
   orderId: null | number;
   status: boolean;
   loading: boolean;
   error: null | string;
 };
 
-const initialState: orderState = {
+const initialState: OrderState = {
   orderId: null,
   status: false,
   loading: false,

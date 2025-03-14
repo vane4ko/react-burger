@@ -7,7 +7,6 @@ import { BurgerItem } from "../../types/types";
 import { countById } from "../../utils/helpers";
 import { useAppDispatch, useAppSelector } from "../../services/app/hooks";
 import { clearError } from "../../services/features/ingredients/ingredients-slice";
-import { thunkFetchIngredients } from "../../services/features/ingredients/ingredients-thunk";
 import { setCurrentIngredient } from "../../services/features/current-ingredient/current-ingredient";
 
 const BurgerIngredients = () => {
@@ -64,10 +63,6 @@ const BurgerIngredients = () => {
       dispatch(clearError());
     }
   }, [error, dispatch]);
-
-  useEffect(() => {
-    dispatch(thunkFetchIngredients());
-  }, [dispatch]);
 
   useEffect(() => {
     const container = containerRef.current;

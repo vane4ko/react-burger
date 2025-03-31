@@ -1,7 +1,6 @@
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
 import styles from "./order-feed.module.css";
-import { useAppSelector } from "../../services/app/hooks";
+import { useAppDispatch, useAppSelector } from "../../services/app/hooks";
 import {
   wsClose,
   wsConnectionStart,
@@ -13,7 +12,7 @@ import Loader from "../../components/loader/loader";
 const GET_ORDERS_URL = "wss://norma.nomoreparties.space/orders/all";
 
 const OrderFeed = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const { orders, connectionError, loader } = useAppSelector(
     (state) => state.ordersFeed

@@ -1,8 +1,7 @@
 .wrapper {
   margin: auto;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 64%;
   padding-top: 120px;
   gap: 60px;
 }
@@ -13,5 +12,3 @@
   flex-direction: column;
   gap: 88px;
 }
-
-

@@ -5,6 +5,7 @@
   background-color: #1c1c21;
   border-radius: 40px;
   height: fit-content;
+  z-index: 101;
 }
 .modalContent {
   display: flex;
@@ -20,7 +21,9 @@
   position: absolute;
   top: 0;
   right: 0;
+  z-index: 100;
 }
-.cursorPointer{
+.cursorPointer {
+  z-index: 100;
   cursor: pointer;
 }

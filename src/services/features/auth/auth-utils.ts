@@ -12,7 +12,7 @@ export async function refreshAccessToken() {
     });
 
     if (!res.ok) {
-      Promise.reject(new Error(`Error ${res.status}`));
+      return Promise.reject(new Error(`Error ${res.status}`));
     }
 
     const { accessToken, refreshToken } = await res.json();
@@ -32,7 +32,7 @@ export async function fetchWithRefresh<T>(
 ): Promise<T> {
   try {
     return await request<T>(url, options);
-  } catch (err: unknown) {
+  } catch (err: unknown) {    
     if (err instanceof Error && err.message === "jwt expired") {
       try {
         const token = await refreshAccessToken();

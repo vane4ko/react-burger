@@ -11,6 +11,7 @@ export const AppRoutes = {
   user: {
     profile: "/profile",
     orders: "orders",
+    profileOrderId: "/profile/orders/:id",
   },
   orders: "/feed",
   orderDetails: "/feed/:id",

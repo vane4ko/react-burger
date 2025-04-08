@@ -1,0 +1,97 @@
+.feedItemCard {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  text-decoration: none;
+  color: white;
+  background-color: var(--background);
+  border-radius: 40px;
+  margin-right: 8px;
+  padding: 24px;
+}
+
+.headerRow {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.orderNumber {
+  color: var(--text-primary-color);
+}
+
+.feedItemTitle {
+  color: var(--text-primary-color);
+  text-decoration: none;
+}
+
+.contentWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ingredientList {
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  list-style: none;
+}
+
+.ingredientItem {
+  border-radius: 50%;
+  width: 64px;
+  height: 64px;
+  background: linear-gradient(var(--background), var(--background)) padding-box,
+    linear-gradient(45deg, #801ab2, var(--colors-interface-accent)) border-box;
+  border: 2px solid transparent;
+  display: flex;
+  align-items: center;
+}
+
+.ingredientItem:not(:first-child),
+.ingredientOverlayItem {
+  margin-left: -20px;
+}
+
+.ingredientOverlayItem {
+  border-radius: 50%;
+  width: 64px;
+  height: 64px;
+  background: linear-gradient(var(--background), var(--background)) padding-box,
+    linear-gradient(45deg, #801ab2, var(--colors-interface-accent)) border-box;
+  border: 2px solid transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  margin-left: -20px;
+}
+
+.imageOverlay {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  position: absolute;
+  border-radius: 50%;
+}
+
+.ingredientImage {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+}
+
+.ingredientCount {
+  position: absolute;
+  left: 23px;
+  z-index: 10;
+}
+
+.priceWrapper {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  color: var(--text-primary-color);
+}

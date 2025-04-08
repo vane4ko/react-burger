@@ -1,8 +1,11 @@
 import { useAppSelector } from "../../../services/app/hooks";
+import Loader from "../../loader/loader";
 import orderStyles from "./order-details.module.css";
 
 const OrderDetails = () => {
   const order = useAppSelector((store) => store.order);
+
+  if (order.loading) return <Loader />;
 
   return (
     <div className={orderStyles.wrapper}>

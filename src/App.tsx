@@ -17,6 +17,9 @@ import { useAuth } from "./services/features/auth/use-auth";
 import ProfileUserData from "./pages/profile-page/profile-user-data/profile-user-data";
 import Page404 from "./pages/page-404/page-404";
 import { thunkFetchIngredients } from "./services/features/ingredients/ingredients-thunk";
+import OrderFeed from "./pages/order-feed/order-feed";
+import OrderData from "./components/order-data/order-data";
+import ProfileFeed from "./pages/profile-page/profile-feed/profile-feed";
 
 function App() {
   const { status } = useAppSelector((store) => store.userAuth);
@@ -41,6 +44,7 @@ function App() {
       <AppHeader />
       <Routes location={background || location}>
         <Route path={AppRoutes.home} element={<Main />} />
+        <Route path={AppRoutes.orders} element={<OrderFeed />} />
         <Route
           element={
             <PrivateRouter
@@ -51,18 +55,14 @@ function App() {
         >
           <Route path={AppRoutes.user.profile} element={<ProfilePage />}>
             <Route index element={<ProfileUserData />} />
-            <Route
-              path={AppRoutes.user.orders}
-              element={
-                //заглушка
-                <ProfileUserData />
-              }
-            />
+            <Route path={AppRoutes.user.orders} element={<ProfileFeed />} />
           </Route>
           <Route
             path={AppRoutes.ingredientDetails}
             element={<IngredientInfo />}
           />
+          <Route path={AppRoutes.orderDetails} element={<OrderData />} />{" "}
+          <Route path={AppRoutes.user.profileOrderId} element={<OrderData />} />
         </Route>
         <Route
           element={<PrivateRouter isAllowed={status !== "authenticated"} />}
@@ -92,6 +92,22 @@ function App() {
                 onClose={handleModalClose}
               >
                 <IngredientInfo />
+              </Modal>
+            }
+          />
+          <Route
+            path={AppRoutes.orderDetails}
+            element={
+              <Modal isOpen={true} title=" " onClose={handleModalClose}>
+                <OrderData inModal />
+              </Modal>
+            }
+          />
+          <Route
+            path={AppRoutes.user.profileOrderId}
+            element={
+              <Modal isOpen={true} title=" " onClose={handleModalClose}>
+                <OrderData inModal />
               </Modal>
             }
           />

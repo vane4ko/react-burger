@@ -8,19 +8,19 @@ describe("creating an order in the burger constructor", () => {
       "accessToken",
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YzQ1YzYwMTMzYWNkMDAxYmU1NGM4NCIsImlhdCI6MTc0NDI4MzI0MCwiZXhwIjoxNzQ0Mjg0NDQwfQ.3w-2NomzX2TyB9pcdMNf_OtnxnEtujgxIEUyeGBF9aY"
     );
-    cy.intercept("GET", "https://norma.nomoreparties.space/api/ingredients", {
+    cy.intercept("GET", "api/ingredients", {
       fixture: "ingredients.json",
     }).as("ingredients");
-    cy.intercept("GET", "https://norma.nomoreparties.space/api/auth/user", {
+    cy.intercept("GET", "api/auth/user", {
       fixture: "user.json",
     });
-    cy.intercept("POST", "https://norma.nomoreparties.space/api/auth/token", {
+    cy.intercept("POST", "api/auth/token", {
       fixture: "accessToken.json",
     });
-    cy.intercept("POST", "https://norma.nomoreparties.space/api/orders", {
+    cy.intercept("POST", "api/orders", {
       fixture: "order.json",
     });
-    cy.visit("http://localhost:5173/");
+    cy.visit("/");
     cy.wait("@ingredients");
   });
 
@@ -53,7 +53,7 @@ describe("creating an order in the burger constructor", () => {
       .and("contain", "420");
 
     cy.getByData("close-button").find("svg").click();
-    cy.location("href").should("equal", "http://localhost:5173/");
+    cy.location("href").should("equal", Cypress.config("baseUrl"));
   });
 
   it("allows the user to reorder ingredients in the constructor", () => {
@@ -89,7 +89,6 @@ describe("creating an order in the burger constructor", () => {
 
   it("allows an authorized user create an order", () => {
     const dataTransfer = new DataTransfer();
-
     cy.getByData("content").as("ingredients");
     cy.getByData("constructor").as("constructor");
     cy.get("@constructor").getByData("total-price").as("totalPrice");
@@ -165,12 +164,11 @@ describe("creating an order in the burger constructor", () => {
       .and("not.contain", "90");
 
     cy.get("@submitBtn").should("be.enabled").click();
-    cy.getByData("order-details").should("exist");
+    cy.getByData("order-details").should("exist").as("details");
     cy.getByData("order-number").should("exist").and("contain", "74004");
-
-    cy.getByData("close-button").should("exist");
-    cy.getByData("close-button").find("svg").click();
-    cy.getByData("order-details").should("not.exist");
+    cy.getByData("close-button").should("exist").as("closeBtn");
+    cy.get("@closeBtn").find("svg").click();
+    cy.get("@details").should("not.exist");
     cy.get("@constructor").should("exist").and("contain", "Выберите булку");
     cy.get("@totalPrice").should("exist").and("contain", "0");
     cy.get("@submitBtn").should("be.disabled");

@@ -3,7 +3,7 @@
   "private": false,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://vane4ko.github.io/react-burger", 
+  "homepage": "https://vane4ko.github.io/react-burger",
   "scripts": {
     "dev": "vite",
     "test": "vitest",

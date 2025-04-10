@@ -38,7 +38,10 @@ const Modal = ({
           onClick={(e) => e.stopPropagation()}
         >
           {title ? (
-            <div className={`${modalStyles.title} mt-10 ml-10 mr-10`}>
+            <div
+              data-test="close-button"
+              className={`${modalStyles.title} mt-10 ml-10 mr-10`}
+            >
               <p className="text text_type_main-large">{title}</p>
               <CloseIcon
                 className={modalStyles.cursorPointer}
@@ -47,7 +50,7 @@ const Modal = ({
               />
             </div>
           ) : (
-            <div className={modalStyles.closeButton}>
+            <div data-test="close-button" className={modalStyles.closeButton}>
               <CloseIcon
                 onClick={onClose}
                 className={`${modalStyles.cursorPointer} mt-15 mr-10`}

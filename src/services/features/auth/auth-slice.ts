@@ -18,7 +18,7 @@ type AuthState = {
   resetIsActive: boolean;
 };
 
-const initialState: AuthState = {
+export const initialState: AuthState = {
   status: "pending",
   isLoading: false,
   user: null,

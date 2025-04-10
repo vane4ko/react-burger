@@ -17,9 +17,8 @@ const IngredientCard = ({
   count,
   onClick,
 }: IngredientCardProps) => {
-
   const [{ isDragging }, drag] = useDrag(() => ({
-    type: 'BURGER_ITEM',
+    type: "BURGER_ITEM",
     item: { ingredient },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
@@ -32,6 +31,7 @@ const IngredientCard = ({
       className={cardSrtyles.box}
       onClick={() => onClick(ingredient)}
       style={{ opacity: isDragging ? 0.5 : 1 }}
+      data-test="content"
     >
       <img
         className={`${cardSrtyles.image} mr-4 ml-4`}

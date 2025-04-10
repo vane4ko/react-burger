@@ -12,7 +12,7 @@ export type TProfileOrdersState = {
   loader: boolean;
 };
 
-const initialState: TProfileOrdersState = {
+export const initialState: TProfileOrdersState = {
   status: WebsocketStatus.OFFLINE,
   orders: [],
   connectionError: "",

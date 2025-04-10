@@ -3,11 +3,14 @@
   "private": false,
   "version": "0.0.0",
   "type": "module",
+  "homepage": "https://vane4ko.github.io/react-burger", 
   "scripts": {
     "dev": "vite",
     "test": "vitest",
     "cypress:open": "./node_modules/.bin/cypress open",
     "build": "tsc && vite build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
@@ -18,6 +21,7 @@
     "@ya.praktikum/react-developer-burger-ui-components": "^1.14.2",
     "core-js": "^3.38.1",
     "eslint": "^8.57.1",
+    "gh-pages": "^6.3.0",
     "lodash-es": "^4.17.21",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",

@@ -3,9 +3,9 @@ import { BurgerItem, BurgerItemWithKey } from "../../../types/types";
 
 type ConstructorState = {
   filling: BurgerItemWithKey[];
-  bun: null | BurgerItem;
+  bun: null | BurgerItemWithKey;
 };
-const initialState: ConstructorState = {
+export const initialState: ConstructorState = {
   filling: [],
   bun: null,
 };
@@ -16,6 +16,7 @@ export const constructorSlice = createSlice({
   reducers: {
     clearFillingItems: (state) => {
       state.filling = [];
+      state.bun = null;
     },
     addIngredient: {
       reducer: (state, action: PayloadAction<BurgerItemWithKey>) => {

@@ -128,7 +128,11 @@ const BurgerIngredients = () => {
           Начинки
         </Tab>
       </div>
-      <div ref={containerRef} className={ingredientsStyles.wrapper}>
+      <div
+        data-test="bun"
+        ref={containerRef}
+        className={ingredientsStyles.wrapper}
+      >
         <p className="text text_type_main-medium mt-10 mb-6">Булки</p>
         <div
           ref={bunRef}
@@ -149,6 +153,7 @@ const BurgerIngredients = () => {
         <div
           ref={sauceRef}
           className={`${ingredientsStyles.constructorCell} ml-4 mb-10`}
+          data-test="souses"
         >
           {burgerData
             .filter((el) => el.type === "sauce")
@@ -165,6 +170,7 @@ const BurgerIngredients = () => {
         <div
           ref={mainRef}
           className={`${ingredientsStyles.constructorCell} ml-4 mb-10`}
+          data-test="ingredients"
         >
           {burgerData
             .filter((el) => el.type === "main")

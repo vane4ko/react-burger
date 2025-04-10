@@ -8,7 +8,7 @@ type CurrentOrderState = {
   error: null | string;
 };
 
-const initialState: CurrentOrderState = {
+export const initialState: CurrentOrderState = {
   order: null,
   loading: false,
   error: null,

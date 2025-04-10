@@ -8,7 +8,7 @@ type IngredientDetailsProps = {
 const IngredientDetails = ({ ingredient }: IngredientDetailsProps) => {
   if (!ingredient) return null;
   return (
-    <div className={ingredientStyles.wrapper}>
+    <div className={ingredientStyles.wrapper} data-test="ingredient-details">
       <img
         className={`${ingredient.image} mb-4`}
         src={ingredient.image_large}

@@ -8,8 +8,11 @@ const OrderDetails = () => {
   if (order.loading) return <Loader />;
 
   return (
-    <div className={orderStyles.wrapper}>
-      <p className={`text text_type_digits-large mb-8 ${orderStyles.glow}`}>
+    <div className={orderStyles.wrapper} data-test="order-details">
+      <p
+        data-test="order-number"
+        className={`text text_type_digits-large mb-8 ${orderStyles.glow}`}
+      >
         {order.loading ? "Loading" : order.orderId || "000"}
       </p>
       <p className="text text_type_main-medium mb-15">индентификатор заказа</p>

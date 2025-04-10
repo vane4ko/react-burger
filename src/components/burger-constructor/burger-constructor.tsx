@@ -11,6 +11,7 @@ import OrderDetails from "./order-details/order-details";
 
 import {
   addIngredient,
+  clearFillingItems,
   deleteIngredient,
   moveIngredient,
 } from "../../services/features/constructor/constructor-slice";
@@ -58,6 +59,7 @@ const BurgerConstructor = () => {
     });
     if (bun) ids.push(bun._id);
     dispatch(thunkSendOrder({ ingredients: ids }));
+    dispatch(clearFillingItems())
     setIsOpen(true);
   };
 
@@ -87,7 +89,11 @@ const BurgerConstructor = () => {
   };
 
   return (
-    <div ref={drop} className={`${BurgerConstructorStyles.wrapper} mt-25 ml-4`}>
+    <div
+      data-test="constructor"
+      ref={drop}
+      className={`${BurgerConstructorStyles.wrapper} mt-25 ml-4`}
+    >
       <ConstructorElement
         type="top"
         isLocked={true}
@@ -117,13 +123,16 @@ const BurgerConstructor = () => {
         extraClass={`ml-8 ${boxShadowBun && BurgerConstructorStyles.shadowed}`}
       />
       <div className={`${BurgerConstructorStyles.info} mt-10`}>
-        <p className="text text_type_digits-medium">{price}</p>
+        <p data-test="total-price" className="text text_type_digits-medium">
+          {price}
+        </p>
         <CurrencyIcon type="primary" className="mr-10" />
         <Button
           onClick={showHandler}
           htmlType="button"
           type="primary"
           size="medium"
+          disabled={!filling.length || !bun}
         >
           Оформить заказ
         </Button>
